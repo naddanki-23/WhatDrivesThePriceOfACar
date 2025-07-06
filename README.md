@@ -46,7 +46,7 @@ Target Variable: price_log — the natural log of the vehicle's listed price
 ### EDA and Correlation Analysis
 - * Perform univariate and bivariate analysis to:
   * Understand distributions (histograms)
-  * Identify correlations with target (`price`) using heatmaps and 
+  * Identify correlations with target (`price`) using heatmaps 
 
 
 - Scaled numerical features using standardization
@@ -70,14 +70,8 @@ Target Variable: price_log — the natural log of the vehicle's listed price
 
 - 
 ## Model Performance Summary (with Cross-Validation)
-Model Performance Comparison:
-                      CV R² (mean ± std)    Test R²Test   RMSE (log)    Test MAE (log)    Best Hyperparameters
-Linear Regression     0.843943 ± 0.013578   0.840468       0.324232      0.225463                None  
-Ridge Regression      0.844739 ± 0.013118   0.841528       0.323153      0.225619       {'regressor__alpha': 1}  
-Lasso Regression      0.838079 ± 0.010577   0.840082       0.324625      0.228625       {'regressor__alpha': 0.001}  
 
-
-
+<img src="images/table.png" width="850"/>
 ### Key Observations:
 
 All three models exhibit similar performance, with Ridge Regression achieving the best test R² (0.8415) and lowest RMSE.
