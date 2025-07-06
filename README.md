@@ -76,6 +76,8 @@ Linear Regression     0.843943 ± 0.013578   0.840468       0.324232      0.2254
 Ridge Regression      0.844739 ± 0.013118   0.841528       0.323153      0.225619       {'regressor__alpha': 1}  
 Lasso Regression      0.838079 ± 0.010577   0.840082       0.324625      0.228625       {'regressor__alpha': 0.001}  
 
+
+
 ### Key Observations:
 
 All three models exhibit similar performance, with Ridge Regression achieving the best test R² (0.8415) and lowest RMSE.
