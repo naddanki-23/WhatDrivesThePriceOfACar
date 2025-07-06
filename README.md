@@ -48,6 +48,7 @@ Target Variable: price_log — the natural log of the vehicle's listed price
   * Understand distributions (histograms)
   * Identify correlations with target (`price`) using heatmaps 
 
+    <img src="corr_mat_price_log.png" width="600"/>
 
 - Scaled numerical features using standardization
 - Added polynomial features (degree=2) to capture interaction and non-linear effects among numeric predictors
