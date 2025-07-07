@@ -32,10 +32,12 @@ Dataset
 
 ## Data Cleaning/Preprocessing
 ### Data Cleaning 
+- Added a new column called area to catagorize the states based on direction (east,  west, central)
 - Filtered out outliers based on price, odometer, and year using IQR
 - *Drop 4 Columns due to missing values/High-cardinality**:
   * `region` , `VIN` both had High-cardinalityand were dropped
   * `model` and `id` had too many unique values.
+  
 
 ### Feature Engineering
 - Created new feature: age = 2025 - year
@@ -59,22 +61,104 @@ Dataset
 - Added polynomial features (degree=2) to capture interaction and non-linear effects among numeric predictors
 
 ---
-### Price Vs Odometer
-![price vs odometer](images/price_vs_odometer.png)
+### Price Vs Categorical Features
+
+**Price Vs. Type**
+
+<img src="images/price vs.type.png" width="600"/>
+
+- 	Trucks, vans, convertibles show high median prices. Sedans and hatchbacks are lower.
+
+**Price Vs.Transmission**
+
+<img src="images/price vs.transmission.png" width="600"/>
+
+- 	Automatics are more expensive, followed by manuals. "Other" has wide variability.
+  
+**Price Vs. Title Status**
+
+<img src="images/price vs.title_status.png" width="600"/>
+
+* Clean titles are most valuable. Salvage/lien/rebuilt show major price drops.
+  
+**Price Vs. State**
+
+<img src="images/price vs.state.png" width="600"/>
+
+- Geographic influence is visible. CA, TX, NY tend to have higher prices and greater spread
+
+**Price Vs. Paint Color**
+
+<img src="images/price vs.paint_color.png" width="600"/>
+
+-  Little impact overall. Neutral tones (white, black, silver) dominate listings.
+  
+**Price Vs. Model**
+
+<img src="images/price vs.model.png" width="600"/>
+
+* Too many categories — high-cardinality. Difficult to visualize; needs dimensionality reduction.
+  
+**Price Vs. Manufacturer**
+
+<img src="images/price vs.manufacturer.png" width="600"/>
+
+* Luxury brands (BMW, Mercedes, Lexus) fetch higher prices; mainstream brands vary widely.
+  
+**Price Vs. Fuel**
+
+<img src="images/price vs.fuel.png" width="600"/>
+
+* Diesel vehicles are most expensive. Hybrid cars show lower prices.
+  
+  **Price Vs. Drive**
+
+<img src="images/price vs.drive.png" width="600"/>
+
+* 4WD vehicles (e.g., trucks/SUVs) are most expensive. FWD cheapest.
+
+**Price Vs. Cylinders**
+
+<img src="images/price vs.cylinders.png" width="600"/>
+
+* More cylinders = higher prices. 8- and 10-cylinder vehicles lead; 4-cylinder most common.
+
+**Price Vs. Condition**
+
+<img src="images/price vs.condition.png" width="600"/>
+
+* Clear progression: New > Like New > Excellent > Good > Fair > Salvage in pricing tiers.
+
+**Price Vs. Area/Region**
+
+<img src="images/price vs.area.png" width="600"/>
+
+* East/Central regions show higher and broader price distributions than the West.
 
 ---
+### Price Vs Numerical Features
 
+**Price Vs. Odometer**
 
+<img src="images/price_odometer.png" width="600"/>
 
+- 	Negative correlation with price — higher mileage lowers value. Outliers exist.
+
+**Price Vs. Year**
+
+<img src="images/price_yr.png" width="600"/>
+
+-  Newer cars are clearly more expensive. Strong upward trend from 2000 to 2021.
+  
+**Price Distrubution**
+
+<img src="images/freq_price.png" width="600"/>
+
+- Highly right-skewed; many vehicles priced under $30K, few high-end outliers.
 ---
 
-
-
----
-
-
-- 
-## Model Performance Summary (with Cross-Validation)
+## Model Performance Summary (with Cross-Validation):
+- Each model was evaluated using a combination of 5-fold cross-validation on the training set and hold-out testing on unseen data. Here's what the performance metrics reveal:
 
 <img src="images/table.png" width="850"/>
 
@@ -127,7 +211,7 @@ These insights help prioritize which attributes matter most in pricing models an
 ## Next Steps & Recommendations
 - Add more features such as accident history ot try advanced models for stronger predictions
 - Build a web app using Streamlit or Flask for real-time predictions
-- If we had more data we could go futhers and break the results by region or time 
+- With access to more data, we could perform a more detailed analysis by breaking down the results further by region or over time. 
 
 
 
