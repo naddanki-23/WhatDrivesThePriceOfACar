@@ -210,7 +210,7 @@ Based on the coefficient analysis from the best-performing model (Lasso), the fo
 ### Top Predictive Features effect on price: 
 - year / age: Newer vehicles tend to be priced higher.
 - fuel_diesel: Diesel-powered vehicles have higher resale value.
-- condition_excellent/ new: Excellent condition significantly boosts price.
+- condition: Excellent condition significantly boosts price while salvage does the opposite.
 - odometer: Higher mileage lowers vehicle value.
 
 
