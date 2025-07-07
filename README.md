@@ -4,9 +4,9 @@
 
 The goal of this project is to build regression models that predict the log-transformed price of used vehicles based on their characteristics (year, make, mileage, etc.) and to analyze/ identify the factors that influence a car price.
 Dataset
-Source: Craigslist vehicle listings dataset
-Size: 42,000+ rows before cleaning, ~31,000 after cleaning
-Target Variable: price_log — the natural log of the vehicle's listed price
+* Source: Craigslist vehicle listings dataset
+* Size: 42,000+ rows before cleaning, ~31,000 after cleaning
+* Target Variable: price_log — the natural log of the vehicle's listed price
 
 ## Notebooks
 - coupon_analysis.ipynb: [link to colab notebook code]([https://drive.google.com/file/d/1FaYJIwel29aY514VXwAM2iGC_nz1itWV/view?usp=sharing](https://drive.google.com/file/d/1j8aCwJ5I4aJp9V_eHGrjQLHVO2qX6LuH/view?usp=sharing))
@@ -41,22 +41,26 @@ Target Variable: price_log — the natural log of the vehicle's listed price
 - Created new feature: age = 2025 - year
    - Features that ended up beign used Used: year, odometer, manufacturer, condition, cylinders, fuel, title_status, transmission, drive, type, paint_color, state, area, "age"
 - Applied log transformation to price to handle skewness
+-  <img src="images/price_log.png" width="600"/>
+ - - Log-Transformed Price (log(1 + price)) is clearly better for modeling.
+     - Removes extreme skew and compresses high-end outliers
+     - Makes the relationship between predictors and target more linear
+     - Improves performance and interpretability of models like Linear, Ridge, Lasso
 - Handled categorical variables using one-hot encoding
   
 ### EDA and Correlation Analysis
-- * Perform univariate and bivariate analysis to:
-  * Understand distributions (histograms)
-  * Identify correlations with target (`price`) using heatmaps 
-
+  - Perform univariate and bivariate analysis to:
+  - Understand distributions (histograms)
+  -  Identify correlations with target (`price`) and (`price_log`)using heatmaps \
     <img src="images/corr_mat_price_log.png" width="600"/>
-
+  - Adding price_log to the correlation map, gives a higher correlation to yr than the regular "price. Decided to use the "price log" as a target:
+    
 - Scaled numerical features using standardization
 - Added polynomial features (degree=2) to capture interaction and non-linear effects among numeric predictors
 
-
-
 ---
-
+### Price Vs Odometer
+![price vs odometer](images/price_vs_odometer.png)
 
 ---
 
@@ -73,32 +77,31 @@ Target Variable: price_log — the natural log of the vehicle's listed price
 ## Model Performance Summary (with Cross-Validation)
 
 <img src="images/table.png" width="850"/>
+
 ### Key Observations:
 
-All three models exhibit similar performance, with Ridge Regression achieving the best test R² (0.8415) and lowest RMSE.
-Linear Regression performs nearly as well, while Lasso shows slightly higher error but enables feature selection.
-These results were derived using 5-fold cross-validation and a 20% hold-out test set.
-The accompanying bar plot visualizes the cross-validated R² scores with error bars (standard deviation), highlighting the consistency of model performance across folds.
+- All three models exhibit similar performance, with Ridge Regression achieving the best test R² (0.8415) and lowest RMSE.
+- Linear Regression performs nearly as well, while Lasso shows slightly higher error but enables feature selection.
+- These results were derived using 5-fold cross-validation and a 20% hold-out test set.
+- The accompanying bar plot visualizes the cross-validated R² scores with error bars (standard deviation), highlighting the consistency of model performance across folds.
 
 ### Visual Interpretation:
-
+ <img src="images/cv_r2.png" width="600"/>
 The bar plot comparing models with error bars helps visualize model stability: Ridge and Linear Regression show nearly identical mean R² values, with Ridge having slightly narrower error margins.
-This suggests Ridge may generalize slightly better across unseen data.
-Lasso, while slightly lower in R², is valuable when simpler models or feature selection is desired.
-These visual insights complement the numerical results and guide the choice of model depending on the application’s priority: accuracy vs. interpretability.
+- This suggests Ridge may generalize slightly better across unseen data. Lasso, while slightly lower in R², is valuable when simpler models or feature selection is desired. These visual insights complement the numerical results and guide the choice of model depending on the application’s priority: accuracy vs. interpretability.
 
 ## Key Features Impacting Used Car Price
 
 Based on the coefficient analysis from the best-performing model (Ridge or Lasso), the following features had the strongest impact on price predictions:
 
+<img src="images/key_features.png" width="600"/>
+
 ### Top Predictive Features effect on price: 
-- odometer: Higher mileage lowers vehicle value.
 - year / age: Newer vehicles tend to be priced higher.
-- fuel_diesel:Diesel-powered vehicles have higher resale value.
-- condition_like new: Excellent condition significantly boosts price.
-- drive_4wd:All-wheel/4WD vehicles typically command higher prices.
-- title_status_clean: Clean title increases trust and resale value.
-- transmission_automatic: Automatics are generally more desirable.
+- fuel_diesel: Diesel-powered vehicles have higher resale value.
+- condition_excellent/ new: Excellent condition significantly boosts price.
+- odometer: Higher mileage lowers vehicle value.
+
 
 ### Low-Impact Features:
 Features such as paint_color, cylinders, and certain state or type values showed very low or zero importance (especially in Lasso), indicating minimal predictive contribution.
@@ -112,17 +115,17 @@ These insights help prioritize which attributes matter most in pricing models an
 
 ## Key Findings & Actionable Items
 
-- **Year:** Newer vehicles sell for significantly more.
-- **Odometer:** Lower mileage = higher price. Mileage is one of the top predictors.
-- **Condition:** “New” and “excellent” cars earn the best prices. 
+- **Year:** Newer models consistently attract higher prices, reinforcing the premium placed on recent manufacturing years.
+- **Odometer:** Cars with lower mileage are notably more valuable—odometer readings are one of the strongest price indicators.
+- **Condition:** Listings marked as “new” or “excellent” receive the highest valuations, while those labeled “salvage” or “fair” significantly underperform.
 
 **What should you do?**
-- **Sell smart:** Highlight the best features (condition, brand) in your ads.
-- **Price smart:** Set realistic prices for high-mileage or salvage vehicles to move them quickly.
-- **Buy smart:** Focus on newer, low-mileage, well-maintained cars.
+- **Maximize Sale Appeal:** Emphasize top-performing features (e.g., condition, manufacturer) in your listings to justify premium pricing.
+- **Set Competitive Prices:** Adjust pricing strategies for older, high-mileage, or lower-condition vehicles to ensure quicker turnover.
+- **Source Strategically:** Prioritize acquiring inventory that’s newer, well-maintained, and in excellent condition to boost profitability and customer interest
 
 ## Next Steps & Recommendations
-- Add more features such as accident history ot try advanced model for stronger predictions
+- Add more features such as accident history ot try advanced models for stronger predictions
 - Build a web app using Streamlit or Flask for real-time predictions
 - If we had more data we could go futhers and break the results by region or time 
 
