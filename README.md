@@ -9,7 +9,7 @@ Dataset
 * Target Variable: price_log — the natural log of the vehicle's listed price
 
 ## Notebooks
-- coupon_analysis.ipynb: [link to colab notebook code]([https://drive.google.com/file/d/1FaYJIwel29aY514VXwAM2iGC_nz1itWV/view?usp=sharing](https://drive.google.com/file/d/1j8aCwJ5I4aJp9V_eHGrjQLHVO2qX6LuH/view?usp=sharing))
+- promptt.ipynb: [link to colab notebook code](https://drive.google.com/file/d/1j8aCwJ5I4aJp9V_eHGrjQLHVO2qX6LuH/view?usp=sharing)
 
 ## Data Description 
 - id – Unique listing ID
@@ -164,19 +164,46 @@ Dataset
 
 ### Key Observations:
 
-- All three models exhibit similar performance, with Ridge Regression achieving the best test R² (0.8415) and lowest RMSE.
-- Linear Regression performs nearly as well, while Lasso shows slightly higher error but enables feature selection.
-- These results were derived using 5-fold cross-validation and a 20% hold-out test set.
-- The accompanying bar plot visualizes the cross-validated R² scores with error bars (standard deviation), highlighting the consistency of model performance across folds.
+**Linear Regression**
 
-### Visual Interpretation:
+Cross-Validation R²: 0.8439 ± 0.0136
+Test R²: 0.8405
+
+Interpretation: Performs well on both training and test data, indicating minimal overfitting. However, without regularization, it may be more sensitive to multicollinearity and noise in the data.
+Use Case: A good baseline model with strong interpretability but lacks robustness for more complex feature interactions.
+
+**Ridge Regression (L2 Regularization)**
+
+Cross-Validation R²: 0.8447 ± 0.0131
+Test R²: 0.8415
+RMSE (log): 0.3231
+Interpretation: Generalizes well and performs strongly, with regularization controlling variance. Slightly better cross-validation score but not the best test performance.
+
+**Lasso Regression (L1 Regularization)**
+
+Cross-Validation R²: 0.8381 ± 0.0106
+
+Test R²: 0.8401
+Interpretation: Lasso Regression was chosen as the final model due to its ability to maintain high accuracy while performing built-in feature selection. This results in a more interpretable and potentially less complex model without sacrificing much performance.
+Use Case: Best suited when model simplicity or dimensionality reduction is needed alongside performance.
+
+**Conclusion: Final Selected Model — Lasso Regression was used in deployment for its balance of performance, feature selection, and simplicity.**
+
+**Visual Respresentation:**
  <img src="images/cv_r2.png" width="600"/>
-The bar plot comparing models with error bars helps visualize model stability: Ridge and Linear Regression show nearly identical mean R² values, with Ridge having slightly narrower error margins.
-- This suggests Ridge may generalize slightly better across unseen data. Lasso, while slightly lower in R², is valuable when simpler models or feature selection is desired. These visual insights complement the numerical results and guide the choice of model depending on the application’s priority: accuracy vs. interpretability.
+
+The error bars in the bar plot represent standard deviation of R² across cross-validation folds.
+All models demonstrate strong and consistent performance, with Lasso slightly more compact and robust for interpretation.
+
+**Metric Interpretations:**
+
+* R² (coefficient of determination): Percentage of variance in price_log explained by the features.
+* RMSE (log): Penalizes large errors more severely. Lower is better.
+* MAE (log): Measures average magnitude of error. Easier to interpret but doesn’t penalize large errors as heavily as RMSE.
 
 ## Key Features Impacting Used Car Price
 
-Based on the coefficient analysis from the best-performing model (Ridge or Lasso), the following features had the strongest impact on price predictions:
+Based on the coefficient analysis from the best-performing model (Lasso), the following features had the strongest impact on price predictions:
 
 <img src="images/key_features.png" width="600"/>
 
