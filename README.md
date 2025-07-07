@@ -205,7 +205,7 @@ All models demonstrate strong and consistent performance, with Lasso slightly mo
 
 Based on the coefficient analysis from the best-performing model (Lasso), the following features had the strongest impact on price predictions:
 
-<img src="images/key_features.png" width="600"/>
+ <img src="images/key_features.png" width="600"/>
 
 ### Top Predictive Features effect on price: 
 - year / age: Newer vehicles tend to be priced higher.
